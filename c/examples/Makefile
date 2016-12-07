@@ -2,7 +2,9 @@
 #****************************************************************
 
 PROGRAMS = \
-    NumberDelimiter
+    NumberDelimiter \
+    ScrabbleScoreChecker \
+    CharHistogram
 
 FLAGS = -L../../build/lib -lcs -lm
 
@@ -21,6 +23,18 @@ NumberDelimiter: NumberDelimiter.o
 
 NumberDelimiter.o: NumberDelimiter.c
 	gcc -c -I../include NumberDelimiter.c
+
+ScrabbleScoreChecker: ScrabbleScoreChecker.o
+	gcc -o ScrabbleScoreChecker ScrabbleScoreChecker.o $(FLAGS)
+
+ScrabbleScoreChecker.o: ScrabbleScoreChecker.c
+	gcc -c -I../include ScrabbleScoreChecker.c
+
+CharHistogram: CharHistogram.o
+	gcc -o CharHistogram CharHistogram.o $(FLAGS)
+
+CharHistogram.o: CharHistogram.c
+	gcc -c -I../include CharHistogram.c
 
 # ***************************************************************
 # Standard entries to remove files from the directories
