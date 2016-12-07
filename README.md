@@ -1,34 +1,25 @@
-# C version of the Stanford Portable Library (SPL) for MacOS, Linux and Windows
+# CSLib
 
-SPL is a simple graphics library that can be used in introductory university-level CS courses.
-This is a fork of the Harvard CS50 version of Eric Roberts' Stanford Portable Library. This version contains a patch of Robert's original version so that the library can also be compiled under Windows.
+CSLib is a fork of Eric Robert's abstraction libraries for C which attempts to simplify the use of C as an introdutory programming language. This library is built on top of ANSI C and provides a basic set of tools and conventions that attempt to facilitate the creation and readability of C programs by abstracting from some of the gory details of C. This library can be pareticularly used in teaching introductory programming to students.
 
 ## Building C and Java sources
-The Makefile automatically detects your system and switches between the Windows and Linux version (no configuration required).
 
 ### MacOS (also tested with Ubuntu and Fedora)
+The following commands should also compile the example code in c/examples.
 
-    git clone https://github.com/OTHRegensburgMedieninformatik/SPL-for-C.git
-    cd Spl-for-C
+    git clone https://github.com/OTHRegensburgMedieninformatik/CSLib.git
+    cd CSLib
     make
-    sudo make install
 
 ### Windows
 
 The Windows version needs MSYS (http://www.mingw.org/wiki/MSYS) in order for make to run. Once MSYS is installed, make sure to edit the PATH variable, so that the MSYS bin folder is the first in the list. This is important, since the Windows find command used in the makefile behaves differently than the MSYS version. Once this is set, the library should compile without errors.
     
-    git clone https://github.com/OTHRegensburgMedieninformatik/SPL-for-C.git
-    cd Spl-for-C
+    git clone https://github.com/OTHRegensburgMedieninformatik/CSLib.git
+    cd CSLib
     make
-    make install
-
-## Compiling and running the C example programs
-The library comes with several example programs that demonstrate the capability of the library but can also be used as student assignments. The examples are automatically compiled together with the library by running make from the top level directory of the code.
-
-Examples can be compiled seperately from c/examples.
-From there run make to compile.
 
 ## TODO
 
-* Fix display bug that seems to omit drawing graphical objects at the start of the program
+* Bug fixing
 
