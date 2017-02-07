@@ -105,6 +105,78 @@ install: build/lib/libcs.a
 examples: build/$(PLATFORM)/lib/libcs.a	
 	make -C c/examples
 
+starterprojects: build/$(PLATFORM)/lib/libcs.a
+	@echo "Build StarterProjects"
+	@rm -rf StarterProjects
+	@cp -r ide StarterProjects
+	@echo "Build StarterProject for Clion on Windows"
+	@cp -r build/$(PLATFORM)/lib StarterProjects/clion/windows/lib
+	@cp -r build/$(PLATFORM)/include StarterProjects/clion/windows/include
+	@echo "Build StarterProject for Clion on Windows"
+	@cp -r build/$(PLATFORM)/lib StarterProjects/clion/linux/lib
+	@cp -r build/$(PLATFORM)/include StarterProjects/clion/linux/include
+	@echo "Build StarterProject for Clion on Windows"
+	@cp -r build/$(PLATFORM)/lib StarterProjects/clion/macos/lib
+	@cp -r build/$(PLATFORM)/include StarterProjects/clion/macos/include
+	@echo "Build StarterProject for CodeBlocks on Windows"
+	@cp -r build/$(PLATFORM)/lib StarterProjects/codeblocks/windows/lib
+	@cp -r build/$(PLATFORM)/include StarterProjects/codeblocks/windows/include
+	@echo "Build StarterProject for CodeBlocks on Linux"
+	@cp -r build/$(PLATFORM)/lib StarterProjects/codeblocks/linux/lib
+	@cp -r build/$(PLATFORM)/include StarterProjects/codeblocks/linux/include
+	@echo "Build StarterProject for CodeBlocks on MacOS"
+	@cp -r build/$(PLATFORM)/lib StarterProjects/codeblocks/macos/lib
+	@cp -r build/$(PLATFORM)/include StarterProjects/codeblocks/macos/include
+	@echo "Check the StarterProjects folder"
+
+clion_windows: build/$(PLATFORM)/lib/libcs.a
+	@echo "Build StarterProject for Clion on Windows"
+	@rm -rf StarterProject
+	@cp -r ide/clion/windows StarterProject
+	@cp -r build/$(PLATFORM)/lib StarterProject/lib
+	@cp -r build/$(PLATFORM)/include StarterProject/include
+	@echo "Check the StarterProject folder"
+
+clion_linux: build/$(PLATFORM)/lib/libcs.a
+	@echo "Build StarterProject for Clion on Linux";
+	@rm -rf StarterProject
+	@cp -r ide/clion/linux StarterProject
+	@cp -r build/$(PLATFORM)/lib StarterProject/lib
+	@cp -r build/$(PLATFORM)/include StarterProject/include
+	@echo "Check the StarterProject folder"
+
+clion_macos: build/$(PLATFORM)/lib/libcs.a
+	@echo "Build StarterProject for Clion on MaxOS";
+	@rm -rf StarterProject
+	@cp -r ide/clion/macos StarterProject
+	@cp -r build/$(PLATFORM)/lib StarterProject/lib
+	@cp -r build/$(PLATFORM)/include StarterProject/include
+	@echo "Check the StarterProject folder"
+
+codeblocks_windows: build/$(PLATFORM)/lib/libcs.a
+	@echo "Build StarterProject for CodeBlocks on Windows";
+	@rm -rf StarterProject
+	@cp -r ide/codeblocks/windows StarterProject
+	@cp -r build/$(PLATFORM)/lib StarterProject/lib
+	@cp -r build/$(PLATFORM)/include StarterProject/include
+	@echo "Check the StarterProject folder"
+
+codeblocks_linux: build/$(PLATFORM)/lib/libcs.a
+	@echo "Build StarterProject for CodeBlocks on Linux";
+	@rm -rf StarterProject
+	@cp -r ide/codeblocks/linux StarterProject
+	@cp -r build/$(PLATFORM)/lib StarterProject/lib
+	@cp -r build/$(PLATFORM)/include StarterProject/include
+	@echo "Check the StarterProject folder"
+
+codeblocks_macos: build/$(PLATFORM)/lib/libcs.a
+	@echo "Build StarterProject for CodeBlocks on MacOS";
+	@rm -rf StarterProject
+	@cp -r ide/codeblocks/macos StarterProject
+	@cp -r build/$(PLATFORM)/lib StarterProject/lib
+	@cp -r build/$(PLATFORM)/include StarterProject/include
+	@echo "Check the StarterProject folder"
+
 # ***************************************************************
 # Standard entries to remove files from the directories
 #    tidy    -- eliminate unwanted files
