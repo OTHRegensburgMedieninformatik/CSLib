@@ -38,7 +38,7 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="HelloCommandLine.c">
+		<Unit filename="HelloConsole.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions>
