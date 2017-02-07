@@ -1,16 +1,22 @@
-# Makefile for spl
+# Makefile for CSLib examples
 #****************************************************************
+
+ifeq ($(OS),Windows_NT)
+PLATFORM=windows
+FLAGS = -L../../build/$(PLATFORM)/lib -lcs -lm 
+FLAGS += -lshlwapi
+CSTD =
+else
+PLATFORM=unixlike
+FLAGS = -L../../build/$(PLATFORM)/lib -lcs -lm 
+CSTD = -std=c99
+endif
+
 
 PROGRAMS = \
     NumberDelimiter \
     ScrabbleScoreChecker \
     CharHistogram
-
-FLAGS = -L../../build/lib -lcs -lm
-
-ifeq ($(OS),Windows_NT)
-FLAGS += -lshlwapi
-endif
 
 # ***************************************************************
 # Entry to bring the package up to date

@@ -3,6 +3,14 @@
 
 SHELL=/bin/bash
 
+# Sets the target platform for SPL
+# Valid values for variable platform are unixlike and windows
+ifeq ($(OS),Windows_NT)
+PLATFORM=windows
+else
+PLATFORM=unixlike
+endif
+
 # Additional compiler flags
 CFLAGS=-std=gnu11
 LDLIBS=
@@ -12,25 +20,29 @@ LDLIBS += -lshlwapi
 endif
 
 BUILD = \
-    build \
-    build/lib \
-    build/obj
+	build \
+    build$(PLATFORM) \
+    build/$(PLATFORM)/lib \
+    build/$(PLATFORM)/obj
 
 OBJECTS = \
-    build/obj/cslib.o \
-    build/obj/unittest.o \
-    build/obj/exception.o \
-    build/obj/strlib.o \
-    build/obj/random.o \
-    build/obj/simpio.o
+    build/$(PLATFORM)/obj/cslib.o \
+    build/$(PLATFORM)/obj/unittest.o \
+    build/$(PLATFORM)/obj/exception.o \
+    build/$(PLATFORM)/obj/strlib.o \
+    build/$(PLATFORM)/obj/random.o \
+    build/$(PLATFORM)/obj/simpio.o
 
-LIBRARIES = build/lib/libcs.a
+LIBRARIES = build/$(PLATFORM)/lib/libcs.a
+
+PROJECT = StarterProject \
+		  StarterProjects
 
 # ***************************************************************
 # Entry to bring the package up to date
 #    The "make all" entry should be the first real entry
 
-all: $(BUILD) $(OBJECTS) $(LIBRARIES)
+all: $(BUILD) $(OBJECTS) $(LIBRARIES) examples
 
 
 # ***************************************************************
@@ -43,55 +55,55 @@ $(BUILD):
 # ***************************************************************
 # Library compilations
 
-build/obj/cslib.o: c/src/cslib.c c/include/cslib.h c/include/exception.h
-	gcc $(CFLAGS) -c -o build/obj/cslib.o -Ic/include c/src/cslib.c
+build/$(PLATFORM)/obj/cslib.o: c/src/cslib.c c/include/cslib.h c/include/exception.h
+	gcc $(CFLAGS) -c -o build/$(PLATFORM)/obj/cslib.o -Ic/include c/src/cslib.c
 
-build/obj/exception.o: c/src/exception.c c/include/cslib.h \
+build/$(PLATFORM)/obj/exception.o: c/src/exception.c c/include/cslib.h \
                  c/include/exception.h c/include/strlib.h \
                  c/include/unittest.h
-	gcc $(CFLAGS) -c -o build/obj/exception.o -Ic/include c/src/exception.c
+	gcc $(CFLAGS) -c -o build/$(PLATFORM)/obj/exception.o -Ic/include c/src/exception.c
 
-build/obj/unittest.o: c/src/unittest.c c/include/cslib.h \
+build/$(PLATFORM)/obj/unittest.o: c/src/unittest.c c/include/cslib.h \
                 c/include/exception.h c/include/generic.h c/include/strlib.h \
                 c/include/unittest.h
-	gcc $(CFLAGS) -c -o build/obj/unittest.o -Ic/include c/src/unittest.c
+	gcc $(CFLAGS) -c -o build/$(PLATFORM)/obj/unittest.o -Ic/include c/src/unittest.c
 
-build/obj/simpio.o: c/src/simpio.c c/include/cslib.h \
+build/$(PLATFORM)/obj/simpio.o: c/src/simpio.c c/include/cslib.h \
               c/include/generic.h c/include/simpio.h c/include/strlib.h
-	gcc $(CFLAGS) -c -o build/obj/simpio.o -Ic/include c/src/simpio.c
+	gcc $(CFLAGS) -c -o build/$(PLATFORM)/obj/simpio.o -Ic/include c/src/simpio.c
 
-build/obj/strlib.o: c/src/strlib.c c/include/cslib.h \
+build/$(PLATFORM)/obj/strlib.o: c/src/strlib.c c/include/cslib.h \
               c/include/exception.h c/include/generic.h c/include/strlib.h \
               c/include/unittest.h
-	gcc $(CFLAGS) -c -o build/obj/strlib.o -Ic/include c/src/strlib.c
+	gcc $(CFLAGS) -c -o build/$(PLATFORM)/obj/strlib.o -Ic/include c/src/strlib.c
 
-build/obj/random.o: c/src/random.c c/include/cslib.h c/include/exception.h \
+build/$(PLATFORM)/obj/random.o: c/src/random.c c/include/cslib.h c/include/exception.h \
               c/include/private/randompatch.h c/include/random.h \
               c/include/unittest.h
-	gcc $(CFLAGS) -c -o build/obj/random.o -Ic/include c/src/random.c
+	gcc $(CFLAGS) -c -o build/$(PLATFORM)/obj/random.o -Ic/include c/src/random.c
 
 
 # ***************************************************************
 # Entry to reconstruct the library archive
 
-build/lib/libcs.a: $(OBJECTS)
-	-rm -f build/lib/libcs.a
-	ar cr build/lib/libcs.a $(OBJECTS)
-	ranlib build/lib/libcs.a
-	cp -r c/include build/
+build/$(PLATFORM)/lib/libcs.a: $(OBJECTS)
+	-rm -f build/$(PLATFORM)/lib/libcs.a
+	ar cr build/$(PLATFORM)/lib/libcs.a $(OBJECTS)
+	ranlib build/$(PLATFORM)/lib/libcs.a
+	cp -r c/include build/$(PLATFORM)/
 
 # ***************************************************************
 # install
 
 install: build/lib/libcs.a
 	rm -rf /usr/local/include/spl
-	cp -r build/include /usr/local/include/spl
+	cp -r build/$(PLATFORM)/include /usr/local/include/spl
 	chmod -R a+rX /usr/local/include/spl
-	cp build/lib/{libcs.a} /usr/local/lib/
+	cp build/$(PLATFORM)/lib/{libcs.a} /usr/local/lib/
 	chmod -R a+r /usr/local/lib/{libcs.a}
 	
-#examples: build/lib/libcs.a	
-	#make -C c/examples
+examples: build/$(PLATFORM)/lib/libcs.a	
+	make -C c/examples
 
 # ***************************************************************
 # Standard entries to remove files from the directories
@@ -110,4 +122,4 @@ examples-tidy:
 	@rm -f c/examples/*.exe
 	
 scratch clean: tidy
-	@rm -f -r $(BUILD) $(OBJECTS) $(LIBRARIES)
+	@rm -f -r $(BUILD) $(OBJECTS) $(LIBRARIES) $(PROJECT)
