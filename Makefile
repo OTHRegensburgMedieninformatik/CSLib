@@ -1,5 +1,5 @@
 # ****************************************************************
-# Makefile for SPL
+# Makefile for CSLib
 
 SHELL=/bin/bash
 
@@ -186,6 +186,15 @@ codeblocks_macos: clean $(BUILD) $(OBJECTS) $(LIBRARIES)
 	@cp -r build/$(PLATFORM)/lib StarterProject/lib
 	@cp -r build/$(PLATFORM)/include StarterProject/include
 	@echo "Check the StarterProject folder"
+
+makefile: clean $(BUILD) $(OBJECTS) $(LIBRARIES)
+	@echo "Build StarterProject for Makefile Project"
+	@rm -rf StarterProject
+	@cp -r ide/makefile StarterProject
+	@cp -r build/$(PLATFORM)/lib StarterProject/lib
+	@cp -r build/$(PLATFORM)/include StarterProject/include
+	@echo "Check the StarterProject folder"
+	
 
 # ***************************************************************
 # Standard entries to remove files from the directories
