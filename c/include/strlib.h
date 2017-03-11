@@ -33,7 +33,7 @@
 /* along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 /*************************************************************************/
 
-/*
+/**
  * Cautionary note:
  * ----------------
  * Although this interface provides an extremely convenient abstraction
@@ -82,7 +82,7 @@ string concat(string s1, string s2);
  * <code>charAt</code> checks to see if <code>i</code> is
  * within the range of legal index positions, which extend
  * from 0 to <code>stringLength(s)</code>.  Calling
- * <code>charAt(s, stringLength(s))</code returns the null
+ * <code>charAt(s, stringLength(s))</code> returns the null
  * character at the end of the string.
  */
 
@@ -290,7 +290,7 @@ int stringToInteger(string s);
  * -----------------------------------
  * Converts a floating-point number into the corresponding string
  * form.  For example, calling <code>realToString(23.45)</code>
- * returns </code>"23.45"</code>.  The conversion is the same as
+ * returns <code>"23.45"</code>.  The conversion is the same as
  * that used for <code>"%G"</code> format in <code>printf</code>.
  */
 

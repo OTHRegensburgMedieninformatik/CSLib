@@ -1,0 +1,6 @@
+*.o
+CharHistogram
+NumberDelimiter
+ScrabbleScoreChecker
+doxy/html
+doxy/latex
