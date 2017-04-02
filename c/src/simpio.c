@@ -121,6 +121,30 @@ double getReal(void) {
    }
 }
 
+char getCharacter(void) {
+   string line;
+   char value;
+   char termch;
+
+   while (true) {
+      line = getLine();
+      if (line == NULL) error("getCharacter: unexpected end of file");
+      switch (sscanf(line, " %c %c", &value, &termch)) {
+        case 1:
+          freeBlock(line);
+          return value;
+        case 2:
+          printf("Unexpected character: '%c'\n", termch);
+          break;
+        default:
+          printf("Please enter a character\n");
+          break;
+      }
+      freeBlock(line);
+      printf("Retry: ");
+   }
+}
+
 /*
  * Function: getLine
  * -----------------

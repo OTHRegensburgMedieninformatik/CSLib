@@ -64,6 +64,18 @@ long getLong(void);
 double getReal(void);
 
 /**
+ * Function: getCharacter
+ * Usage: d = getCharacter();
+ * ---------------------
+ * Reads a line of text from standard input and scans it as a
+ * <code>char</code>.  If an character cannot be scanned or if
+ * extraneous characters follow the scanned character, the user is given
+ * a chance to retry.
+ */
+
+char getCharacter(void);
+
+/**
  * Function: getLine
  * Usage: s = getLine();
  * ---------------------
